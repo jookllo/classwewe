@@ -55,6 +55,6 @@ fun main(){
     }.apply {
         exception(Exception::class.java) { e, ctx -> e.printStackTrace() }
         error(HttpStatus.NOT_FOUND) { ctx -> ctx.json("not found") }
-    }.start(7070)
+    }.start()
 
 }
