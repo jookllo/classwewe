@@ -61,7 +61,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.tasker.Main</mainClass>
+                            <mainClass>com.tasker.MainKt</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
