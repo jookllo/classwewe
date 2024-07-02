@@ -21,14 +21,23 @@ fun main(){
 
             get("/students/{student-id}") { ctx->
                  val studentId = ctx.pathParamAsClass<Int>("student-id").get()
-                 val student = studentDao.findById(studentId) ?: throw NotFoundResponse()
-                 ctx.json(student)
+                val student = studentDao.findById(studentId) ?: run {
+                    ctx.status(404)
+                    ctx.json(mapOf("error" to "Student not found"))
+                    return@get
+                }
+                ctx.json(student)
             }
 
             get("/students/name/{student-name}"){ ctx ->
                 val studentName = ctx.pathParam("student-name")
-                val sName = studentDao.findByStudentName(studentName) ?: throw NotFoundResponse()
-                ctx.json(sName)
+                val sName = studentDao.findByStudentName(studentName)
+                if (sName != null) {
+                    ctx.json(sName)
+                } else {
+                    ctx.status(404)
+                    ctx.json(mapOf("error" to "Student not found with name: $studentName"))
+                }
             }
 
             post("/students") { ctx ->
